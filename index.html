@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archana Janali Hashinika | Full Stack Developer</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- GSAP for advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <!-- Splitting.js for text animations -->
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css">
+  <!-- Lenis for smooth scrolling -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --primary: #7c3aed;
+      --secondary: #4f46e5;
+      --accent: #10b981;
+      --dark: #0f172a;
+      --light: #f8fafc;
+    }
+    
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .skill-badge {
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .skill-badge:hover {
+      transform: translateY(-5px) scale(1.05);
+      background: rgba(124, 58, 237, 0.2);
+      box-shadow: 0 10px 20px -5px rgba(124, 58, 237, 0.3);
+    }
+    
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 0 25px 50px -12px rgba(124, 58, 237, 0.25);
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid rgba(124, 58, 237, 0.3);
+    }
+    
+    .wave-hand {
+      animation-name: wave;
+      transform-origin: 70% 70%;
+      display: inline-block;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+      height: 100vh;
+    }
+    
+    .hero-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 400%; /* 4 slides */
+      height: 100%;
+      display: flex;
+      animation: slide 30s infinite;
+    }
+    
+    .hero-slide {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(104, 34, 233, 0.9), rgba(153, 150, 201, 0.9));
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 10;
+    }
+    .hero-content .glass-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 3rem;
+  max-width: 800px;
+  width: 90%;
+}
+
+    
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Gradient Animation */
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    /* Slider Animation */
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(0); }
+      25% { transform: translateX(-25%); }
+      45% { transform: translateX(-25%); }
+      50% { transform: translateX(-50%); }
+      70% { transform: translateX(-50%); }
+      75% { transform: translateX(-75%); }
+      95% { transform: translateX(-75%); }
+      100% { transform: translateX(0); }
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.8);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+    }
+    
+    /* Loading Bar Animation */
+    .loading-bar {
+      height: 4px;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      transition: width 0.3s ease;
+      background-size: 300% 100%;
+      animation: gradient 8s ease infinite;
+    }
+    
+    /* Tech Icon Hover Effect */
+    .tech-icon {
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .tech-icon:hover {
+      transform: scale(1.2) rotate(10deg);
+      filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.6));
+    }
+    
+    /* Contact Form Input Focus */
+    .contact-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+    }
+    
+    /* Back to Top Button */
+    .back-to-top {
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 10px 20px -5px rgba(124, 58, 237, 0.4);
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 15px 30px -5px rgba(124, 58, 237, 0.5);
+    }
+    
+    /* Text Animation */
+    .char {
+      display: inline-block;
+    }
+    
+    /* Glow Effect */
+    .glow {
+      filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.5));
+    }
+    
+    /* Particle Background */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    
+    /* 3D Card Effect */
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+    }
+    
+    /* Section Divider */
+    .section-divider {
+      position: relative;
+      height: 150px;
+      overflow: hidden;
+    }
+    
+    .section-divider::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom right, transparent 49.5%, var(--dark) 50%);
+    }
+    
+    /* Blob Animation */
+    .blob {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.2;
+      z-index: -1;
+      animation: blob-animate 15s infinite alternate;
+    }
+    
+    @keyframes blob-animate {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -50px) scale(1.1); }
+      66% { transform: translate(-50px, 50px) scale(0.9); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    
+    /* Wave Animation */
+    @keyframes wave {
+      0% { transform: rotate(0deg); }
+      10% { transform: rotate(14deg); }
+      20% { transform: rotate(-8deg); }
+      30% { transform: rotate(14deg); }
+      40% { transform: rotate(-4deg); }
+      50% { transform: rotate(10deg); }
+      60% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+    
+    /* Neon Effect */
+    .neon-text {
+      text-shadow: 0 0 5px rgba(124, 58, 237, 0.8),
+                   0 0 10px rgba(124, 58, 237, 0.6),
+                   0 0 15px rgba(124, 58, 237, 0.4);
+    }
+    
+    /* Hover Underline Animation */
+    .hover-underline {
+      position: relative;
+    }
+    
+    .hover-underline::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+    
+    .hover-underline:hover::after {
+      width: 100%;
+    }
+
+    /* Fix for text visibility */
+    [data-splitting] .word,
+    [data-splitting] .char {
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    
+    .initial-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+     .section-title [data-splitting] .word,
+    .section-title [data-splitting] .char {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+    }
+  </style>
+</head>
+<body class="bg-dark text-light">
+
+  <!-- Loading Bar -->
+  <div class="loading-bar"></div>
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Blob Elements -->
+  <div class="blob top-[-150px] left-[-150px]"></div>
+  <div class="blob bottom-[-150px] right-[-150px]"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed w-full glass-card z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold gradient-text hover-underline" data-splitting>ARCHANA</a>
+      <div class="hidden md:flex space-x-8">
+        <a href="#home" class="text-light hover:text-primary transition hover-underline" data-splitting>HOME</a>
+        <a href="#about" class="text-light hover:text-primary transition hover-underline" data-splitting>ABOUT</a>
+        <a href="#skills" class="text-light hover:text-primary transition hover-underline" data-splitting>SKILLS</a>
+        <a href="#projects" class="text-light hover:text-primary transition hover-underline" data-splitting>PROJECTS</a>
+        <a href="#education" class="text-light hover:text-primary transition hover-underline" data-splitting>EDUCATION</a>
+        <a href="#contact" class="text-light hover:text-primary transition hover-underline" data-splitting>CONTACT</a>
+      </div>
+      <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+        <i class="fas fa-bars text-2xl text-light"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden glass-card shadow-lg" id="mobile-menu">
+      <div class="px-6 py-4 space-y-4">
+        <a href="#home" class="block text-light hover:text-primary transition hover-underline" data-splitting>HOME</a>
+        <a href="#about" class="block text-light hover:text-primary transition hover-underline" data-splitting>ABOUT</a>
+        <a href="#skills" class="block text-light hover:text-primary transition hover-underline" data-splitting>SKILLS</a>
+        <a href="#projects" class="block text-light hover:text-primary transition hover-underline" data-splitting>PROJECTS</a>
+        <a href="#education" class="block text-light hover:text-primary transition hover-underline" data-splitting>EDUCATION</a>
+        <a href="#contact" class="block text-light hover:text-primary transition hover-underline" data-splitting>CONTACT</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Sliding Background -->
+  <section id="home" class="hero-section flex items-center justify-center pt-20">
+    <div class="hero-slider">
+      <!-- Slide 1 - Code Background -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+      
+      <!-- Slide 2 - Developer Workspace -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80');"></div>
+      
+      <!-- Slide 3 - Mobile Development -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
+      
+      <!-- Slide 4 - Web Design -->
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');"></div>
+    </div>
+    
+    <div class="hero-content max-w-7xl mx-auto px-6 py-20 text-center relative z-10">
+      <div class="overflow-hidden">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 neon-text" data-splitting>HI, I'M HASHINIKA <span class="wave-hand">👋</span></h1>
+      </div>
+      <div class="overflow-hidden">
+        <h2 class="text-xl md:text-3xl mb-8 uppercase tracking-widest text-primary" data-splitting>Full Stack Developer & Mobile App Developer</h2>
+      </div>
+      <div class="overflow-hidden max-w-3xl mx-auto">
+        <p class="text-lg md:text-xl mb-10 opacity-90" data-splitting>
+          Passionate about building amazing web and mobile experiences with modern technologies.
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-center gap-6">
+         <div class="overflow-hidden max-w-3xl mx-auto">
+          <a href="#projects" class= "text-lg md:text-xl mb-10 opacity-90" data-splitting>
+            VIEW MY WORK
+          </a>
+        </div>
+        <div class="overflow-hidden">
+          <a href="#contact" class="text-lg md:text-xl mb-10 opacity-90" data-splitting>
+            CONTACT ME
+          </a>
+        </div>
+      </div>
+      <div class="mt-16 overflow-hidden">
+        <a href="#about" class="text-lg md:text-xl mb-10 opacity-90" data-splitting>
+          <span class="mb-2">SCROLL DOWN</span>
+          <i class="fas fa-chevron-down text-xl animate-bounce"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- About Section -->
+  <section id="about" class="py-28 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="overflow-hidden mb-20 text-center section-title">
+        <h2 class="text-4xl md:text-6xl " data-splitting>ABOUT ME</h2>
+      </div>
+      <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="lg:w-1/3 flex justify-center">
+          <div class="relative card-3d" id="profile-card">
+            <img src="my.jpg" 
+                 alt="Archana Janali Hashinika" 
+                 class="w-72 h-72 md:w-80 md:h-80 rounded-xl object-cover shadow-2xl floating">
+            <div class="absolute -bottom-5 -right-5 bg-accent text-white px-6 py-3 rounded-full font-bold shadow-lg glow">
+              <i class="fas fa-code mr-2"></i> DEVELOPER
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-2/3">
+          <div class="overflow-hidden mb-6">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4" data-splitting>MOTIVATED AND DETAIL-ORIENTED IT UNDERGRADUATE</h3>
+          </div>
+          <div class="overflow-hidden mb-8">
+            <p class="text-lg mb-6 opacity-90 leading-relaxed" data-splitting>
+              I'm a passionate developer with a strong foundation in programming, software development, and problem-solving. 
+              Experienced in academic and personal projects using languages such as Java, Python, and web technologies. 
+              A quick learner with excellent teamwork and communication skills, seeking opportunities to gain practical 
+              industry experience and grow as an IT professional.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            <div class="flex items-center glass-card p-4 rounded-xl">
+              <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4 glow">
+                <i class="fas fa-user-graduate text-primary text-xl tech-icon"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">EDUCATION</h4>
+                <p class="text-gray-400">BSc(Hons) Information Technology</p>
+              </div>
+            </div>
+            <div class="flex items-center glass-card p-4 rounded-xl">
+              <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4 glow">
+                <i class="fas fa-envelope text-primary text-xl tech-icon"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">EMAIL</h4>
+                <p class="text-gray-400">hashinikaarchana@gmail.com</p>
+              </div>
+            </div>
+            <div class="flex items-center glass-card p-4 rounded-xl">
+              <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4 glow">
+                <i class="fas fa-phone-alt text-primary text-xl tech-icon"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">PHONE</h4>
+                <p class="text-gray-400">0741307056</p>
+              </div>
+            </div>
+            <div class="flex items-center glass-card p-4 rounded-xl">
+              <div class="bg-primary bg-opacity-20 p-3 rounded-full mr-4 glow">
+                <i class="fas fa-map-marker-alt text-primary text-xl tech-icon"></i>
+              </div>
+              <div>
+                <h4 class="font-bold">LOCATION</h4>
+                <p class="text-gray-400">41/1, Weragala, Padukka</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-4">
+            <a href="https://github.com/HashinikaJanali" target="_blank" class="glass-card hover:bg-primary hover:bg-opacity-20 p-4 rounded-full transition glow">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" target="_blank" class="glass-card hover:bg-primary hover:bg-opacity-20 p-4 rounded-full transition glow">
+              <i class="fab fa-linkedin-in text-xl"></i>
+            </a>
+            <a href="#" target="_blank" class="glass-card hover:bg-primary hover:bg-opacity-20 p-4 rounded-full transition glow">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-28 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="overflow-hidden mb-20 text-center">
+        <h2 class="text-4xl md:text-6xl" data-splitting>TECHNICAL SKILLS</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Languages -->
+        <div class="glass-card p-8 rounded-xl" id="skills-card-1">
+          <div class="flex items-center mb-6">
+            <div class="bg-primary bg-opacity-20 p-4 rounded-full mr-4 glow">
+              <i class="fas fa-code text-primary text-2xl tech-icon"></i>
+            </div>
+            <h3 class="text-xl">LANGUAGES</h3>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">HTML</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">CSS</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">JavaScript</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">TypeScript</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">C</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">C++</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Java</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Kotlin</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Python</span>
+          </div>
+        </div>
+        
+        <!-- Frameworks -->
+        <div class="glass-card p-8 rounded-xl" id="skills-card-2">
+          <div class="flex items-center mb-6">
+            <div class="bg-primary bg-opacity-20 p-4 rounded-full mr-4 glow">
+              <i class="fas fa-cubes text-primary text-2xl tech-icon"></i>
+            </div>
+            <h3 class="text-xl">FRAMEWORKS</h3>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">React</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Angular</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">SpringBoot</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Vue.js</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Express.js</span>
+          </div>
+        </div>
+        
+        <!-- Databases -->
+        <div class="glass-card p-8 rounded-xl" id="skills-card-3">
+          <div class="flex items-center mb-6">
+            <div class="bg-primary bg-opacity-20 p-4 rounded-full mr-4 glow">
+              <i class="fas fa-database text-primary text-2xl tech-icon"></i>
+            </div>
+            <h3 class="text-xl">DATABASES</h3>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">MongoDB</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">MySQL</span>
+          </div>
+        </div>
+        
+        <!-- Technologies -->
+        <div class="glass-card p-8 rounded-xl" id="skills-card-4">
+          <div class="flex items-center mb-6">
+            <div class="bg-primary bg-opacity-20 p-4 rounded-full mr-4 glow">
+              <i class="fas fa-tools text-primary text-2xl tech-icon"></i>
+            </div>
+            <h3 class="text-xl">TECHNOLOGIES</h3>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Git</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">MERN Stack</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">MVC Architecture</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Android Studio</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Figma</span>
+            <span class="skill-badge px-4 py-2 rounded-full text-sm font-medium">Postman</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-28 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="overflow-hidden mb-20 text-center">
+        <h2 class="text-4xl md:text-6xl" data-splitting>FEATURED PROJECTS</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Sweet Delivery System -->
+        <div class="project-card glass-card rounded-xl overflow-hidden" id="project-card-1">
+          <div class="h-64 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('pabasaranew.png');">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            <i class="fas fa-shopping-cart text-white text-5xl relative z-10 glow"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-3">SWEET DELIVERY SYSTEM</h3>
+            <p class="text-gray-400 mb-5">Online sweet store using MERN Stack with order and payment management.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge px-3 py-1 rounded text-xs">MongoDB</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Express.js</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">React</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Node.js</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <a href="#" class="text-primary font-bold hover-underline">VIEW DETAILS</a>
+              <a href="https://github.com/HashinikaJanali/Order-and-Payment-Pages.git" target="_blank" class="text-gray-400 hover:text-primary glow">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CineSwift – Movie App -->
+        <div class="project-card glass-card rounded-xl overflow-hidden" id="project-card-2">
+          <div class="h-64 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('movieapp.png');">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            <i class="fas fa-film text-white text-5xl relative z-10 glow"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-3">CINESWIFT – MOVIE APP</h3>
+            <p class="text-gray-400 mb-5">Mobile movie streaming app with onboarding, categories, and user profile.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge px-3 py-1 rounded text-xs">Kotlin</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">XML</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Android Studio</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Figma</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <a href="#" class="text-primary font-bold hover-underline">VIEW DETAILS</a>
+              <a href="https://github.com/HashinikaJanali/CineSwift.git" target="_blank" class="text-gray-400 hover:text-primary glow">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CashFlow – Personal Finance Tracker App -->
+        <div class="project-card glass-card rounded-xl overflow-hidden" id="project-card-3">
+          <div class="h-64 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('financetracker.png');">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <i class="fas fa-wallet text-white text-5xl relative z-10 glow"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-3">CASHFLOW – FINANCE TRACKER</h3>
+            <p class="text-gray-400 mb-5">Mobile app to manage income, expenses, and budgets with alerts.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge px-3 py-1 rounded text-xs">Kotlin</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">XML</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">SharedPreferences</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">RecyclerView</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <a href="#cashflow-details" class="text-primary font-bold hover-underline">VIEW DETAILS</a>
+              <a href="https://github.com/HashinikaJanali/finance-tracker.git" target="_blank" class="text-gray-400 hover:text-primary glow">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- CineSwift Website -->
+        <div class="project-card glass-card rounded-xl overflow-hidden" id="project-card-4">
+          <div class="h-64 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('moviesite.png');">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            <i class="fas fa-globe text-white text-5xl relative z-10 glow"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-3">CINESWIFT WEBSITE</h3>
+            <p class="text-gray-400 mb-5">Frontend website for movie streaming service with responsive UI.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge px-3 py-1 rounded text-xs">HTML</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">CSS</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">JavaScript</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Responsive Design</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <a href="#" class="text-primary font-bold hover-underline">VIEW DETAILS</a>
+              <a href="https://github.com/HashinikaJanali/movieapp.git" target="_blank" class="text-gray-400 hover:text-primary glow">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glow Hive Project -->
+        <div class="project-card glass-card rounded-xl overflow-hidden" id="project-card-5">
+          <div class="h-64 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('glowhive.png');">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            <i class="fas fa-lightbulb text-white text-5xl relative z-10 glow"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-3">GLOW HIVE</h3>
+            <p class="text-gray-400 mb-5">A modern e-commerce platform for beauty products with AI recommendations.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge px-3 py-1 rounded text-xs">HTML</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">CSS</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">JavaScript</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Responsive Design</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <a href="#glow-hive-details" class="text-primary font-bold hover-underline">VIEW DETAILS</a>
+              <a href="https://github.com/HashinikaJanali/Glow-Hive" target="_blank" class="text-gray-400 hover:text-primary glow">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task Flow Project -->
+        <div class="project-card glass-card rounded-xl overflow-hidden" id="project-card-6">
+          <div class="h-64 bg-cover bg-center flex items-center justify-center relative" style="background-image: url('taskflow.png');">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            <i class="fas fa-tasks text-white text-5xl relative z-10 glow"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-3">TASK FLOW</h3>
+            <p class="text-gray-400 mb-5">A productivity application for task management with drag-and-drop functionality.</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="skill-badge px-3 py-1 rounded text-xs">React</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Node.js</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">MongoDB</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Express</span>
+              <span class="skill-badge px-3 py-1 rounded text-xs">Material UI</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <a href="#task-flow-details" class="text-primary font-bold hover-underline">VIEW DETAILS</a>
+              <a href="https://github.com/HashinikaJanali/Task-Flow" target="_blank" class="text-gray-400 hover:text-primary glow">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-16">
+        <a href="https://github.com/HashinikaJanali" target="_blank" class="inline-flex items-center px-8 py-4 border-2 border-primary text-primary rounded-full font-bold hover:bg-primary hover:bg-opacity-10 transition-all transform hover:scale-105 glow" data-splitting>
+          <i class="fab fa-github mr-3"></i> VIEW ALL PROJECTS ON GITHUB
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Education Section -->
+  <section id="education" class="py-28 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="overflow-hidden mb-20 text-center">
+        <h2 class="text-4xl md:text-6xl" data-splitting>EDUCATION & CERTIFICATIONS</h2>
+      </div>
+      
+      <div class="relative max-w-4xl mx-auto">
+        <!-- Timeline line -->
+        <div class="absolute left-8 md:left-1/2 h-full w-1 bg-gradient-to-b from-primary to-secondary transform -translate-x-1/2"></div>
+        
+        <!-- Education Items -->
+        <div class="space-y-16">
+          <!-- BSc IT -->
+          <div class="relative pl-16 md:pl-0 md:flex justify-between timeline-item" id="education-item-1">
+            <div class="md:w-5/12 md:pr-8 md:text-right">
+              <h3 class="text-xl font-bold text-light">BSC(HONS) INFORMATION TECHNOLOGY</h3>
+              <p class="text-primary mb-2">Sri Lanka Institute Of Information Technology (SLIIT)</p>
+             
+            </div>
+            <div class="hidden md:block w-2/12 flex justify-center">
+              <div class="h-5 w-5 rounded-full bg-primary border-4 border-dark shadow-lg glow"></div>
+            </div>
+            <div class="md:w-5/12 md:pl-8 mt-6 md:mt-0">
+              <p class="text-gray-400">Currently pursuing my degree with a focus on software development and emerging technologies.</p>
+            </div>
+          </div>
+          
+          <!-- Full Stack Development -->
+          <div class="relative pl-16 md:pl-0 md:flex justify-between timeline-item" id="education-item-2">
+            <div class="md:w-5/12 md:pr-8 md:text-right order-3">
+              <p class="text-gray-400">Completed a comprehensive full stack development program covering modern web technologies.</p>
+            </div>
+            <div class="hidden md:block w-2/12 flex justify-center order-2">
+              <div class="h-5 w-5 rounded-full bg-primary border-4 border-dark shadow-lg glow"></div>
+            </div>
+            <div class="md:w-5/12 md:pl-8 mt-6 md:mt-0 order-1">
+              <h3 class="text-xl font-bold text-light">FULL STACK DEVELOPMENT</h3>
+              <p class="text-primary mb-2">University Of Moratuwa</p>
+              
+            </div>
+          </div>
+          
+          <!-- QA Tester -->
+          <div class="relative pl-16 md:pl-0 md:flex justify-between timeline-item" id="education-item-3">
+            <div class="md:w-5/12 md:pr-8 md:text-right">
+              <h3 class="text-xl font-bold text-light">CERTIFIED SOFTWARE QA TESTER</h3>
+              <p class="text-primary mb-2">FSD ACADEMY</p>
+             
+            </div>
+            <div class="hidden md:block w-2/12 flex justify-center">
+              <div class="h-5 w-5 rounded-full bg-primary border-4 border-dark shadow-lg glow"></div>
+            </div>
+            <div class="md:w-5/12 md:pl-8 mt-6 md:mt-0">
+              <p class="text-gray-400">Gained expertise in software testing methodologies and quality assurance processes.</p>
+            </div>
+          </div>
+          
+          <!-- HR Diploma -->
+          <div class="relative pl-16 md:pl-0 md:flex justify-between timeline-item" id="education-item-4">
+            <div class="md:w-5/12 md:pr-8 md:text-right order-3">
+              <p class="text-gray-400">Acquired knowledge in human resource management principles and practices.</p>
+            </div>
+            <div class="hidden md:block w-2/12 flex justify-center order-2">
+              <div class="h-5 w-5 rounded-full bg-primary border-4 border-dark shadow-lg glow"></div>
+            </div>
+            <div class="md:w-5/12 md:pl-8 mt-6 md:mt-0 order-1">
+              <h3 class="text-xl font-bold text-light">DIPLOMA IN HR MANAGEMENT</h3>
+              <p class="text-primary mb-2">Science and Information Technology City Campus (SITC)</p>
+           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Divider -->
+  <div class="section-divider"></div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-28 px-6 relative">
+    <div class="max-w-7xl mx-auto">
+      <div class="overflow-hidden mb-20 text-center">
+        <h2 class="text-4xl md:text-6xl" data-splitting>GET IN TOUCH</h2>
+      </div>
+      <div class="flex flex-col lg:flex-row gap-12">
+        <div class="lg:w-1/2">
+          <div class="gradient-bg p-10 rounded-2xl text-white" id="contact-info">
+            <h3 class="text-2xl">CONTACT INFORMATION</h3>
+            <div class="space-y-8">
+              <div class="flex items-start">
+                <div class="bg-white bg-opacity-20 p-4 rounded-full mr-6 glow">
+                  <i class="fas fa-envelope text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg">EMAIL</h4>
+                  <p class="opacity-90">hashinikaarchana@gmail.com</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-white bg-opacity-20 p-4 rounded-full mr-6 glow">
+                  <i class="fas fa-phone-alt text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg">PHONE</h4>
+                  <p class="opacity-90">0741307056</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-white bg-opacity-20 p-4 rounded-full mr-6 glow">
+                  <i class="fas fa-map-marker-alt text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg">LOCATION</h4>
+                  <p class="opacity-90">41/1, Weragala, Padukka</p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-12">
+              <h4 class="text-xl md:text-xl">CONNECT WITH ME</h4>
+              <div class="flex space-x-6">
+                <a href="https://github.com/HashinikaJanali" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-full transition glow">
+                  <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-full transition glow">
+                  <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="#" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-full transition glow">
+                  <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="#" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-4 rounded-full transition glow">
+                  <i class="fab fa-instagram text-xl"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <form class="glass-card p-10 rounded-2xl" id="contact-form">
+            <div class="mb-8">
+              <label for="name" class="block text-light font-bold mb-3">YOUR NAME</label>
+              <input type="text" id="name" class="w-full px-5 py-4 rounded-lg bg-dark border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent contact-input text-light">
+            </div>
+            <div class="mb-8">
+              <label for="email" class="block text-light font-bold mb-3">YOUR EMAIL</label>
+              <input type="email" id="email" class="w-full px-5 py-4 rounded-lg bg-dark border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent contact-input text-light">
+            </div>
+            <div class="mb-8">
+              <label for="subject" class="block text-light font-bold mb-3">SUBJECT</label>
+              <input type="text" id="subject" class="w-full px-5 py-4 rounded-lg bg-dark border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent contact-input text-light">
+            </div>
+            <div class="mb-8">
+              <label for="message" class="block text-light font-bold mb-3">MESSAGE</label>
+              <textarea id="message" rows="5" class="w-full px-5 py-4 rounded-lg bg-dark border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent contact-input text-light"></textarea>
+            </div>
+            <button type="submit" class="w-full gradient-bg hover:opacity-90 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-[1.02] glow">
+              SEND MESSAGE
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-b from-dark to-black py-16 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-8 md:mb-0">
+          <a href="#" class="text-2xl hover-underline" data-splitting>HASHINIKA</a>
+          <p class="mt-3 text-gray-500">Full Stack Developer & Mobile App Developer</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="https://github.com/HashinikaJanali" target="_blank" class="text-gray-500 hover:text-primary transition glow">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+          <a href="#" target="_blank" class="text-gray-500 hover:text-primary transition glow">
+            <i class="fab fa-linkedin-in text-xl"></i>
+          </a>
+          <a href="#" target="_blank" class="text-gray-500 hover:text-primary transition glow">
+            <i class="fab fa-twitter text-xl"></i>
+          </a>
+          <a href="#" target="_blank" class="text-gray-500 hover:text-primary transition glow">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 ARCHANA JANALI HASHINIKA. ALL RIGHTS RESERVED.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#home" class="fixed bottom-8 right-8 back-to-top p-4 rounded-full">
+    <i class="fas fa-arrow-up text-xl"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize Splitting.js for text animations
+      Splitting();
+      
+      // Initialize Lenis for smooth scrolling
+      const lenis = new Lenis({
+        lerp: 0.1,
+        smooth: true,
+        direction: 'vertical'
+      });
+      
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      
+      requestAnimationFrame(raf);
+      
+      // Mobile menu toggle
+      document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+      });
+      
+      // Loading bar animation
+      lenis.on('scroll', ({ scroll, limit }) => {
+        const scrollProgress = (scroll / limit) * 100;
+        document.querySelector('.loading-bar').style.width = scrollProgress + '%';
+      });
+      
+      // GSAP Animations
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Hero section animations
+      gsap.from(".hero-section h1 .char", {
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.05,
+        delay: 0.2
+      });
+      
+      gsap.from(".hero-section h2 .char", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.03,
+        delay: 0.6
+      });
+      
+      gsap.from(".hero-section p .char", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.01,
+        delay: 1.0
+      });
+      
+      gsap.from(".hero-section a", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.1,
+        delay: 1.4
+      });
+      
+      // Section title animations
+      gsap.utils.toArray('h2[data-splitting]').forEach(section => {
+        gsap.from(section.querySelectorAll('.char'), {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.02,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+      
+      // About section animations
+      gsap.from("#profile-card", {
+        x: -100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 70%",
+          toggleActions: "play none none none"
+        }
+      });
+      
+      gsap.from("#about h3 .char", {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.02,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 70%",
+          toggleActions: "play none none none"
+        }
+      });
+      
+      gsap.from("#about p .char", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.01,
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 70%",
+          toggleActions: "play none none none"
+        }
+      });
+      
+      // Skills cards animations
+      gsap.utils.toArray('[id^="skills-card-"]').forEach((card, i) => {
+        gsap.from(card, {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: i * 0.1,
+          scrollTrigger: {
+            trigger: "#skills",
+            start: "top 70%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+      
+      // Project cards animations
+      gsap.utils.toArray('[id^="project-card-"]').forEach((card, i) => {
+        gsap.from(card, {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: i * 0.1,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+      
+      // Education items animations
+      gsap.utils.toArray('[id^="education-item-"]').forEach((item, i) => {
+        gsap.from(item, {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: i * 0.1,
+          scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            toggleActions: "play none none none"
+          }
+        });
+      });
+      
+      // Contact section animations
+      gsap.from("#contact-info", {
+        x: -50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top 70%",
+          toggleActions: "play none none none"
+        }
+      });
+      
+      gsap.from("#contact-form", {
+        x: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "#contact",
+          start: "top 70%",
+          toggleActions: "play none none none"
+        }
+      });
+      
+      // Wave animation for the hand emoji
+      const waveHand = document.querySelector('.wave-hand');
+      if (waveHand) {
+        waveHand.style.animation = 'wave 2s linear infinite';
+      }
+      
+      // Initialize Particle.js
+      particlesJS('particles-js', {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#7c3aed"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+              "enable": false,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#7c3aed",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 2,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "grab"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 140,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      });
+      
+      // 3D tilt effect for profile card
+      document.getElementById('profile-card').addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        document.getElementById('profile-card').style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+      
+      document.getElementById('profile-card').addEventListener('mouseenter', () => {
+        document.getElementById('profile-card').style.transition = 'none';
+      });
+      
+      document.getElementById('profile-card').addEventListener('mouseleave', () => {
+        document.getElementById('profile-card').style.transition = 'all 0.5s ease';
+        document.getElementById('profile-card').style.transform = 'rotateY(0deg) rotateX(0deg)';
+      });
+    });
+  </script>
+</body>
+</html>
